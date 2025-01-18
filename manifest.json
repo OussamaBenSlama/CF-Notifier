@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "CF Notifier",
+  "version": "1.0",
+  "description": "Get reminders for upcoming Codeforces contests",
+  "permissions": [
+    "notifications",
+    "alarms",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "public/logo-16x16.png",
+      "32": "public/logo-32x32.png",
+      "192": "public/logo-192x192.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js"
+  }
+}
