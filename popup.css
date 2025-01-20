@@ -1,3 +1,4 @@
+/* Base Styles */
 body {
   width: 400px;
   margin: 0;
@@ -17,7 +18,7 @@ body {
 h1 {
   color: #3fd8d5;
   font-size: 24px;
-  margin: 0 0 20px 0;
+  margin: 0 0 20px;
   text-align: center;
   position: relative;
   padding-bottom: 10px;
@@ -39,6 +40,7 @@ h1::after {
   border-radius: 2px;
 }
 
+/* Contests Container */
 .contests-container {
   max-height: 400px;
   overflow-y: auto;
@@ -64,6 +66,7 @@ h1::after {
   background: #5473c7;
 }
 
+/* Contest Card */
 .contest-card {
   background-color: #303643;
   border-radius: 10px;
@@ -166,7 +169,9 @@ h1::after {
   color: #5473c7;
 }
 
-.loading {
+/* Loading and No Contests */
+.loading,
+.no-contests {
   text-align: center;
   color: #a0a8b8;
   padding: 20px;
@@ -177,8 +182,185 @@ h1::after {
 }
 
 .no-contests {
-  text-align: center;
-  color: #a0a8b8;
-  padding: 20px;
   font-style: italic;
+}
+
+/* Filters */
+.filters {
+  background-color: #303643;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #3c424f;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.filter-group:last-child {
+  margin-bottom: 0;
+}
+
+.filter-label {
+  color: #a0a8b8;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.filters label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.filters input[type="checkbox"] {
+  accent-color: #3fd8d5;
+  cursor: pointer;
+}
+
+.filters input[type="checkbox"]:hover {
+  accent-color: #5473c7;
+}
+
+/* Light Mode */
+body.light-mode {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+body.light-mode .container {
+  background-color: #ffffff;
+  color: #333;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode h1 {
+  color: #5473c7;
+}
+
+body.light-mode h1::after {
+  background: linear-gradient(90deg, #5473c7, #3fd8d5);
+}
+
+body.light-mode .filters {
+  background-color: #f9f9f9;
+  border-color: #ddd;
+}
+
+body.light-mode .filter-label,
+body.light-mode .filters label {
+  color: #666;
+}
+
+body.light-mode .filters input[type="checkbox"] {
+  accent-color: #5473c7;
+}
+
+body.light-mode .filters input[type="checkbox"]:hover {
+  accent-color: #3fd8d5;
+}
+
+body.light-mode .contest-card {
+  background-color: #f9f9f9;
+  border-color: #ddd;
+}
+
+body.light-mode .contest-name {
+  color: #333;
+}
+
+body.light-mode .contest-time {
+  color: #666;
+}
+
+body.light-mode .icon {
+  color: #5473c7;
+}
+
+body.light-mode .contest-countdown {
+  color: #5473c7;
+  background-color: rgba(84, 115, 199, 0.1);
+}
+
+body.light-mode .contest-link {
+  color: #5473c7;
+}
+
+body.light-mode .contest-link:hover {
+  color: #3fd8d5;
+}
+
+body.light-mode .loading,
+body.light-mode .no-contests {
+  color: #666;
+}
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 48px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #3c424f;
+  transition: 0.4s;
+  border-radius: 24px;
+}
+
+.slider:before {
+  position: absolute;
+  content: '';
+  height: 20px;
+  width: 20px;
+  left: 2px;
+  bottom: 2px;
+  background-color: #ffffff;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #3fd8d5;
+}
+
+input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+#themeLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #a0a8b8;
+}
+
+body.light-mode #themeLabel {
+  color: #666;
 }

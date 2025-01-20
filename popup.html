@@ -8,7 +8,32 @@
 </head>
 <body>
   <div class="container">
-    <h1><i class="ti ti-trophy"></i>Upcoming Contests</h1>
+    <div class="header">
+      <h1><i class="ti ti-trophy"></i>Upcoming Contests</h1>
+      <div class="theme-toggle">
+        <label class="switch">
+          <input type="checkbox" id="themeToggle">
+          <span class="slider round"></span>
+        </label>
+        <span id="themeLabel">Dark Mode</span>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="filter-group">
+        <span class="filter-label">Division:</span>
+        <label><input type="checkbox" id="div1" checked> Div. 1</label>
+        <label><input type="checkbox" id="div2" checked> Div. 2</label>
+        <label><input type="checkbox" id="div3" checked> Div. 3</label>
+        <label><input type="checkbox" id="div4" checked> Div. 4</label>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">Type:</span>
+        <label><input type="checkbox" id="rated" checked> Rated</label>
+        <label><input type="checkbox" id="unrated" checked> Unrated</label>
+        <label><input type="checkbox" id="gym" checked> Gym</label>
+      </div>
+    </div>
+
     <div class="contests-container" id="contestsList">
       <!-- Contests will be loaded here -->
     </div>

@@ -1,3 +1,48 @@
+const themeToggle = document.getElementById('themeToggle');
+const themeLabel = document.getElementById('themeLabel');
+const body = document.body;
+
+themeToggle.addEventListener('change', () => {
+  if (themeToggle.checked) {
+    body.classList.add('light-mode');
+    themeLabel.textContent = 'Light Mode';
+  } else {
+    body.classList.remove('light-mode');
+    themeLabel.textContent = 'Dark Mode';
+  }
+});
+
+function filterContests(contests) {
+  const div1 = document.getElementById('div1').checked;
+  const div2 = document.getElementById('div2').checked;
+  const div3 = document.getElementById('div3').checked;
+  const div4 = document.getElementById('div4').checked;
+  const rated = document.getElementById('rated').checked;
+  const unrated = document.getElementById('unrated').checked;
+  const gym = document.getElementById('gym').checked;
+
+  return contests.filter(contest => {
+    const isDiv1 = contest.name.includes('Div. 1');
+    const isDiv2 = contest.name.includes('Div. 2');
+    const isDiv3 = contest.name.includes('Div. 3');
+    const isDiv4 = contest.name.includes('Div. 4');
+    const isRated = contest.name.includes('Rated');
+    const isGym = contest.name.includes('Gym');
+
+    return (
+      (div1 && isDiv1) ||
+      (div2 && isDiv2) ||
+      (div3 && isDiv3) ||
+      (div4 && isDiv4) 
+    ) && (
+      (rated && isRated) ||
+      (unrated && !isRated) ||
+      (gym && isGym)
+    );
+  });
+}
+
+
 async function fetchContests() {
   try {
     const contestsList = document.getElementById('contestsList');
@@ -11,6 +56,7 @@ async function fetchContests() {
         .filter(contest => contest.phase === 'BEFORE')
         .sort((a, b) => a.startTimeSeconds - b.startTimeSeconds);
       
+      window.contests = upcomingContests;
       displayContests(upcomingContests);
     }
   } catch (error) {
@@ -20,6 +66,7 @@ async function fetchContests() {
   }
 }
 
+// Display Contests
 function displayContests(contests) {
   const contestsList = document.getElementById('contestsList');
   contestsList.innerHTML = '';
@@ -33,7 +80,10 @@ function displayContests(contests) {
     const startTime = new Date(contest.startTimeSeconds * 1000);
     const timeUntil = getTimeUntil(startTime);
     const formattedDate = formatDate(startTime);
-    
+    const duration = formatDuration(contest.durationSeconds);
+    const registrationStatus = contest.phase === 'BEFORE' ? 'Open' : 'Closed';
+    const participants = contest.participants || 0; 
+
     const contestCard = document.createElement('div');
     contestCard.className = `contest-card${index === 0 ? ' next-contest' : ''}`;
     contestCard.innerHTML = `
@@ -41,6 +91,18 @@ function displayContests(contests) {
       <div class="contest-time">
         <i class="ti ti-calendar-time icon"></i>
         ${formattedDate}
+      </div>
+      <div class="contest-duration">
+        <i class="ti ti-clock icon"></i>
+        Duration: ${duration}
+      </div>
+      <div class="contest-registration">
+        <i class="ti ti-user-check icon"></i>
+        Registration: ${registrationStatus}
+      </div>
+      <div class="contest-participants">
+        <i class="ti ti-users icon"></i>
+        Participants: ${participants}
       </div>
       <div class="contest-countdown">
         <div class="countdown-text">
@@ -68,6 +130,12 @@ function formatDate(date) {
   return date.toLocaleDateString('en-US', options);
 }
 
+function formatDuration(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  return `${hours}h ${minutes}m`;
+}
+
 function getTimeUntil(date) {
   const now = new Date();
   const diff = date - now;
@@ -84,5 +152,11 @@ function getTimeUntil(date) {
   return parts.join(' ');
 }
 
-// Fetch contests when popup opens
+document.querySelectorAll('.filters input').forEach(input => {
+  input.addEventListener('change', () => {
+    const filteredContests = filterContests(window.contests);
+    displayContests(filteredContests);
+  });
+});
+
 document.addEventListener('DOMContentLoaded', fetchContests);
