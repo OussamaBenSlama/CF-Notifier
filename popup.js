@@ -17,27 +17,18 @@ function filterContests(contests) {
   const div2 = document.getElementById('div2').checked;
   const div3 = document.getElementById('div3').checked;
   const div4 = document.getElementById('div4').checked;
-  const rated = document.getElementById('rated').checked;
-  const unrated = document.getElementById('unrated').checked;
-  const gym = document.getElementById('gym').checked;
 
   return contests.filter(contest => {
     const isDiv1 = contest.name.includes('Div. 1');
     const isDiv2 = contest.name.includes('Div. 2');
     const isDiv3 = contest.name.includes('Div. 3');
     const isDiv4 = contest.name.includes('Div. 4');
-    const isRated = contest.name.includes('Rated');
-    const isGym = contest.name.includes('Gym');
 
     return (
       (div1 && isDiv1) ||
       (div2 && isDiv2) ||
       (div3 && isDiv3) ||
       (div4 && isDiv4) 
-    ) && (
-      (rated && isRated) ||
-      (unrated && !isRated) ||
-      (gym && isGym)
     );
   });
 }
@@ -95,14 +86,6 @@ function displayContests(contests) {
       <div class="contest-duration">
         <i class="ti ti-clock icon"></i>
         Duration: ${duration}
-      </div>
-      <div class="contest-registration">
-        <i class="ti ti-user-check icon"></i>
-        Registration: ${registrationStatus}
-      </div>
-      <div class="contest-participants">
-        <i class="ti ti-users icon"></i>
-        Participants: ${participants}
       </div>
       <div class="contest-countdown">
         <div class="countdown-text">
